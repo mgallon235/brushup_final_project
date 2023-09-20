@@ -85,6 +85,3 @@ plt.legend()
 
 # Displaying the plot
 plt.show()
-
-
-
