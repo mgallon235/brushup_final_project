@@ -77,10 +77,13 @@ df = pd.concat([df, new_rows])
 
 df["type"] = "Infected"
 df2["type"] = "Infected with Vaccine"
+df["slope"] = df["infected"].diff()/df["date"].diff()
+df2["slope"] = df2["infected"].diff()/df2["date"].diff()
+df = df.fillna(0)
+df2 = df2.fillna(0)
 ## Join DataFrames
 df_merge = pd.concat([df, df2])
 '''---------------------------------------------'''
-print(df_merge)
 #plot both curves same chart
 fig = px.line(df_merge, x='date', y='infected', color="type", title='Number of Infected per Day', labels=dict(date="Days", infected="Infected Persons"))
 fig.show()
@@ -91,8 +94,12 @@ fig.show()
 # identify inflection point 
 # create change in slope graph 
 # maximum infection slope 
-df[""]
 
 
+fig = px.line(df_merge, x='date', y='slope', color="type", title='Infection Rate per Day', labels=dict(date="Days", slope="Infection Rate"))
+fig.show()
+
+print(df.loc[df.slope == df.slope.max()])
+print(df2.loc[df2.slope == df2.slope.max()])
 # stages of infection 
 # stages of vaccination effect
